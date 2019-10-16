@@ -1,0 +1,22 @@
+-------------------------------------------------------------------------------
+Test set: mflix.api.daos.FacetedSearchTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 3.248 s <<< FAILURE! - in mflix.api.daos.FacetedSearchTest
+testRatingRuntimeBuckets(mflix.api.daos.FacetedSearchTest)  Time elapsed: 1.064 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.FacetedSearchTest.testRatingRuntimeBuckets(FacetedSearchTest.java:43)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.FacetedSearchTest.testRatingRuntimeBuckets(FacetedSearchTest.java:43)
+
+testFacetedSearchPaging(mflix.api.daos.FacetedSearchTest)  Time elapsed: 1.094 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.FacetedSearchTest.testFacetedSearchPaging(FacetedSearchTest.java:69)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.FacetedSearchTest.testFacetedSearchPaging(FacetedSearchTest.java:69)
+
+testFacetedMultipleCast(mflix.api.daos.FacetedSearchTest)  Time elapsed: 1.075 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.FacetedSearchTest.testFacetedMultipleCast(FacetedSearchTest.java:97)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.FacetedSearchTest.testFacetedMultipleCast(FacetedSearchTest.java:97)
+

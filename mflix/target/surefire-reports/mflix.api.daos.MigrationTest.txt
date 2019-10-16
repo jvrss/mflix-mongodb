@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: mflix.api.daos.MigrationTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 4.369 s <<< FAILURE! - in mflix.api.daos.MigrationTest
+testAllDocumentsIMDBRatingNumber(mflix.api.daos.MigrationTest)  Time elapsed: 2.188 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.MigrationTest.testAllDocumentsIMDBRatingNumber(MigrationTest.java:45)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.MigrationTest.testAllDocumentsIMDBRatingNumber(MigrationTest.java:45)
+
+testAllDocumentsUpdateDateIsDateType(mflix.api.daos.MigrationTest)  Time elapsed: 2.18 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.MigrationTest.testAllDocumentsUpdateDateIsDateType(MigrationTest.java:34)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.MigrationTest.testAllDocumentsUpdateDateIsDateType(MigrationTest.java:34)
+

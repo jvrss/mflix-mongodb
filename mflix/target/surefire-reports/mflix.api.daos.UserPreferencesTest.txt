@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+Test set: mflix.api.daos.UserPreferencesTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 6.56 s <<< FAILURE! - in mflix.api.daos.UserPreferencesTest
+testNullPreferences(mflix.api.daos.UserPreferencesTest)  Time elapsed: 2.176 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.UserPreferencesTest.setup(UserPreferencesTest.java:42)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.UserPreferencesTest.setup(UserPreferencesTest.java:42)
+
+testNullPreferences(mflix.api.daos.UserPreferencesTest)  Time elapsed: 2.177 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.UserPreferencesTest.tearDown(UserPreferencesTest.java:48)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.UserPreferencesTest.tearDown(UserPreferencesTest.java:48)
+
+testUpdateSinglePreferences(mflix.api.daos.UserPreferencesTest)  Time elapsed: 2.168 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.UserPreferencesTest.setup(UserPreferencesTest.java:42)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.UserPreferencesTest.setup(UserPreferencesTest.java:42)
+
+testUpdateSinglePreferences(mflix.api.daos.UserPreferencesTest)  Time elapsed: 2.171 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.UserPreferencesTest.tearDown(UserPreferencesTest.java:48)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.UserPreferencesTest.tearDown(UserPreferencesTest.java:48)
+
+testMultiplePreferences(mflix.api.daos.UserPreferencesTest)  Time elapsed: 2.193 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.UserPreferencesTest.setup(UserPreferencesTest.java:42)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.UserPreferencesTest.setup(UserPreferencesTest.java:42)
+
+testMultiplePreferences(mflix.api.daos.UserPreferencesTest)  Time elapsed: 2.195 s  <<< ERROR!
+com.mongodb.MongoSecurityException: Exception authenticating MongoCredential{mechanism=SCRAM-SHA-1, userName='m220-student', source='admin', password=<hidden>, mechanismProperties={}}
+	at mflix.api.daos.UserPreferencesTest.tearDown(UserPreferencesTest.java:48)
+Caused by: com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 'bad auth Authentication failed.' on server oministack-shard-00-01-dwiob.mongodb.net:27017. The full response is { "ok" : 0, "errmsg" : "bad auth Authentication failed.", "code" : 8000, "codeName" : "AtlasError" }
+	at mflix.api.daos.UserPreferencesTest.tearDown(UserPreferencesTest.java:48)
+
