@@ -176,6 +176,21 @@ public class MovieDao extends AbstractMFlixDao {
    * @return List of documents sorted by sortKey that match the cast selector.
    */
   public List<Document> getMoviesByCast(String sortKey, int limit, int skip, String... cast) {
+
+//    Bson castFilter = null;
+//    Bson sort = null;
+//    castFilter = Filters.in("cast", cast);
+//    sort = Sorts.descending(sortKey);
+//    List<Document> movies = new ArrayList<>();
+//    moviesCollection
+//            .find(castFilter)
+//            .sort(sort)
+//            .limit(limit)
+//            .skip(skip)
+//            .iterator()
+//            .forEachRemaining(movies::add);
+//    return movies;
+
     Bson castFilter = in("cast", cast);
     Bson sort = Sorts.descending(sortKey);
 
