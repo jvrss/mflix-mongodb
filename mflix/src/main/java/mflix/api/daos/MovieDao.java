@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import static com.mongodb.client.model.Filters.in;
-
+import static com.mongodb.client.model.Aggregates.sort;
+import static com.mongodb.client.model.Sorts.ascending;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -175,10 +176,9 @@ public class MovieDao extends AbstractMFlixDao {
    * @return List of documents sorted by sortKey that match the cast selector.
    */
   public List<Document> getMoviesByCast(String sortKey, int limit, int skip, String... cast) {
-    Bson castFilter = null;
-    Bson sort = null;
-    //TODO> Ticket: Subfield Text Search - implement the expected cast
-    // filter and sort
+    Bson castFilter = in("cast", cast);
+    Bson sort = Sorts.descending(sortKey);
+
     List<Document> movies = new ArrayList<>();
     moviesCollection
         .find(castFilter)
