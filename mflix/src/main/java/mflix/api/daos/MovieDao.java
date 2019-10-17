@@ -3,27 +3,17 @@ package mflix.api.daos;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.*;
-import org.bson.BsonDocument;
 import org.bson.Document;
-import org.bson.codecs.BsonValueCodecProvider;
-import org.bson.codecs.ValueCodecProvider;
-import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import static com.mongodb.client.model.Filters.in;
-import static com.mongodb.client.model.Aggregates.match;
-import static com.mongodb.client.model.Aggregates.project;
-import static com.mongodb.client.model.Projections.excludeId;
-import static com.mongodb.client.model.Projections.fields;
-import static com.mongodb.client.model.Projections.include;
+
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
