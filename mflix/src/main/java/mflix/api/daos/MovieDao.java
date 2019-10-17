@@ -120,6 +120,15 @@ public class MovieDao extends AbstractMFlixDao {
    * @return List of matching Document objects.
    */
   public List<Document> getMoviesByCountry(String... country) {
+//    Bson queryFilter = Filters.in("countries", country);
+//    Bson projection = Projections.include("title");
+//    List<Document> movies = new ArrayList<>();
+//    moviesCollection
+//            .find(queryFilter)
+//            .projection(projection)
+//            .iterator()
+//            .forEachRemaining(movies::add);
+//    return movies;
     Bson queryFilter =  in("countries", country);
     Bson projection = new Document("title", 1);
 
