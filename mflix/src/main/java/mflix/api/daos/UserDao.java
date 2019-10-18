@@ -5,6 +5,7 @@ import com.mongodb.MongoWriteException;
 import com.mongodb.WriteConcern;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.DeleteResult;
@@ -22,6 +23,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -76,10 +79,22 @@ public class UserDao extends AbstractMFlixDao {
    * @return true if successful
    */
   public boolean createUserSession(String userId, String jwt) {
-    //TODO> Ticket: User Management - implement the method that allows session information to be
-    // stored in it's designated collection.
+    Bson queryFilter = Filters.eq("countries", jwt);
+
+    List<Document> sessions = new ArrayList<>();
+    sessionsCollection.find(queryFilter).into(sessions);
+
+    if(sessions.size() == 0){
+
+      Document userSession = new Document("user_session", userId);
+      sessionsCollection.insertOne(userSession);
+
+      return true;
+
+    }
+
     return false;
-    //TODO > Ticket: Handling Errors - implement a safeguard against
+    // safeguard against
     // creating a session with the same jwt token.
   }
 
@@ -91,6 +106,9 @@ public class UserDao extends AbstractMFlixDao {
    */
   public User getUser(String email) {
     User user = null;
+
+    Bson queryFilter = Filters.eq("email", email);
+
     //TODO> Ticket: User Management - implement the query that returns the first User object.
     return user;
   }
