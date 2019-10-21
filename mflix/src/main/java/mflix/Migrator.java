@@ -94,7 +94,7 @@ public class Migrator {
     MongoDatabase mflix = MongoClients.create(mongoUri).getDatabase("sample_mflix");
     MongoCollection<Document> movies = mflix.getCollection("movies");
     Bson dateStringFilter = null;
-    String datePattern = "";
+    String datePattern = "yyyy-MM-dd HH:mm:ss.Z";
     // TODO> Ticket: Migration - create a query filter that finds all
     // documents that are required to be updated and the correct date
     // format pattern
