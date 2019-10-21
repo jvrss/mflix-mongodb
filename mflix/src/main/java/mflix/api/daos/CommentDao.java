@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.mongodb.client.model.Updates.set;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -80,11 +81,13 @@ public class CommentDao extends AbstractMFlixDao {
    */
   public Comment addComment(Comment comment) {
 
-    // TODO> Ticket - Update User reviews: implement the functionality that enables adding a new
-    // comment.
-    // TODO> Ticket - Handling Errors: Implement a try catch block to
-    // handle a potential write exception when given a wrong commentId.
-    return null;
+    commentCollection.insertOne(comment);
+
+    if(comment.getId() == null){
+      throw new IncorrectDaoOperation("Invalid Id");
+    }
+
+    return comment;
   }
 
   /**
@@ -102,11 +105,22 @@ public class CommentDao extends AbstractMFlixDao {
    */
   public boolean updateComment(String commentId, String text, String email) {
 
-    // TODO> Ticket - Update User reviews: implement the functionality that enables updating an
-    // user own comments
-    // TODO> Ticket - Handling Errors: Implement a try catch block to
-    // handle a potential write exception when given a wrong commentId.
-    return false;
+    Comment comment = getComment(commentId);
+
+    if(!comment.getEmail().equals(email)){
+      return false;
+    }
+
+    if(comment == null){
+      throw new IncorrectDaoOperation("Not found");
+    }
+
+    Bson queryFilter = Filters.eq("_id", new ObjectId(commentId));
+
+    commentCollection.updateOne(queryFilter, set("email", email));
+    commentCollection.updateOne(queryFilter, set("text", text));
+
+    return true;
   }
 
   /**
