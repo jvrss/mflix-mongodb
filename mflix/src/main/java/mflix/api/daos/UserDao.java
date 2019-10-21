@@ -34,9 +34,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 public class UserDao extends AbstractMFlixDao {
 
   private final MongoCollection<User> usersCollection;
-  //TODO> Ticket: User Management - do the necessary changes so that the sessions collection
-  //returns a Session object
-  private final MongoCollection<Document> sessionsCollection;
+  private final MongoCollection<Session> sessionsCollection;
 
   private final Logger log;
 
@@ -51,9 +49,7 @@ public class UserDao extends AbstractMFlixDao {
 
     usersCollection = db.getCollection("users", User.class).withCodecRegistry(pojoCodecRegistry);
     log = LoggerFactory.getLogger(this.getClass());
-    //TODO> Ticket: User Management - implement the necessary changes so that the sessions
-    // collection returns a Session objects instead of Document objects.
-    sessionsCollection = db.getCollection("sessions");
+    sessionsCollection = db.getCollection("sessions", Session.class).withCodecRegistry(pojoCodecRegistry);
   }
 
   /**
@@ -63,12 +59,14 @@ public class UserDao extends AbstractMFlixDao {
    * @return True if successful, throw IncorrectDaoOperation otherwise
    */
   public boolean addUser(User user) {
-    //TODO > Ticket: Durable Writes -  you might want to use a more durable write concern here!
+    User alreadyExists = getUser(user.getEmail());
+
+    if(alreadyExists != null){
+      throw new IncorrectDaoOperation("Already Exists");
+    }
+
     usersCollection.insertOne(user);
     return true;
-    //TODO > Ticket: Handling Errors - make sure to only add new users
-    // and not users that already exist.
-
   }
 
   /**
@@ -81,16 +79,17 @@ public class UserDao extends AbstractMFlixDao {
   public boolean createUserSession(String userId, String jwt) {
     Bson queryFilter = Filters.eq("countries", jwt);
 
-    List<Document> sessions = new ArrayList<>();
+    List<Session> sessions = new ArrayList<>();
     sessionsCollection.find(queryFilter).into(sessions);
 
     if(sessions.size() == 0){
+      Session userSession = new Session();
+      userSession.setUserId(userId);
+      userSession.setJwt(jwt);
 
-      Document userSession = new Document("user_session", userId);
       sessionsCollection.insertOne(userSession);
 
       return true;
-
     }
 
     return false;
@@ -109,7 +108,14 @@ public class UserDao extends AbstractMFlixDao {
 
     Bson queryFilter = Filters.eq("email", email);
 
-    //TODO> Ticket: User Management - implement the query that returns the first User object.
+    List<User> userList = new ArrayList<>();
+
+    usersCollection.find(queryFilter).into(userList);
+
+    if(userList.size() > 0){
+      user = userList.get(0);
+    }
+
     return user;
   }
 
@@ -120,13 +126,30 @@ public class UserDao extends AbstractMFlixDao {
    * @return Session object or null.
    */
   public Session getUserSession(String userId) {
-    //TODO> Ticket: User Management - implement the method that returns Sessions for a given
-    // userId
-    return null;
+    Session session = null;
+
+    Bson queryFilter = Filters.eq("user_id", userId);
+
+    List<Session> sessionList = new ArrayList<>();
+
+    sessionsCollection.find(queryFilter).into(sessionList);
+
+    if(sessionList.size() > 0){
+      session = sessionList.get(0);
+    }
+
+    return session;
   }
 
   public boolean deleteUserSessions(String userId) {
-    //TODO> Ticket: User Management - implement the delete user sessions method
+    Bson queryFilter = Filters.eq("user_id", userId);
+
+    Session session = sessionsCollection.findOneAndDelete(queryFilter);
+
+    if(session != null){
+      return true;
+    }
+
     return false;
   }
 
@@ -137,10 +160,17 @@ public class UserDao extends AbstractMFlixDao {
    * @return true if user successfully removed
    */
   public boolean deleteUser(String email) {
-    // remove user sessions
-    //TODO> Ticket: User Management - implement the delete user method
-    //TODO > Ticket: Handling Errors - make this method more robust by
-    // handling potential exceptions.
+
+    Bson queryFilter = Filters.eq("email", email);
+
+    User user = usersCollection.findOneAndDelete(queryFilter);
+
+    deleteUserSessions(user.getEmail());
+
+    if(user != null){
+      return true;
+    }
+
     return false;
   }
 
