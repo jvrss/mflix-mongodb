@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.mongodb.client.model.Updates.set;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -77,7 +78,7 @@ public class UserDao extends AbstractMFlixDao {
    * @return true if successful
    */
   public boolean createUserSession(String userId, String jwt) {
-    Bson queryFilter = Filters.eq("countries", jwt);
+    Bson queryFilter = Filters.eq("jwt", jwt);
 
     List<Session> sessions = new ArrayList<>();
     sessionsCollection.find(queryFilter).into(sessions);
@@ -183,10 +184,15 @@ public class UserDao extends AbstractMFlixDao {
    * @return User object that just been updated.
    */
   public boolean updateUserPreferences(String email, Map<String, ?> userPreferences) {
-    //TODO> Ticket: User Preferences - implement the method that allows for user preferences to
-    // be updated.
-    //TODO > Ticket: Handling Errors - make this method more robust by
-    // handling potential exceptions when updating an entry.
-    return false;
+
+    if(userPreferences == null){
+      throw new IncorrectDaoOperation("Need a preference");
+    }
+
+    Bson queryFilter = Filters.eq("email", email);
+
+    usersCollection.updateOne(queryFilter, set("preferences", userPreferences));
+
+    return true;
   }
 }
